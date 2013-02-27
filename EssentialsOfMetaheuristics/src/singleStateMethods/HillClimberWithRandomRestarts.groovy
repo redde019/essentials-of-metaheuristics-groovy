@@ -1,21 +1,24 @@
 package singleStateMethods
 
-import problems.OnesMax
-import groovy.transform.ToString
+import java.util.Random
 
-class SteepestAscentHillClimberWithReplacement {
-    Integer numGradientSamples = 10
+class HillClimberWithRandomRestarts {
+    // List of numbers representing the number of times the sample solution will be 
+    // tweaked before the best sample is compared to the best solution. A random number
+    // will be selected from this list.
+    def restartTimeDistro = [10, 100, 1000]
+    Random rand = new Random()
 
     def maximize(problem) {
         def s = problem.create()
         def sQuality = problem.quality(s)
         def best = s
         def bestQuality = sQuality
-
         while (!problem.terminate(s, sQuality)) {
             def bestSample
             def bestSampleQuality = Integer.MIN_VALUE
-            for(int i = 0; i < numGradientSamples; i++) {
+            def loops = restartTimeDistro[rand.nextInt(restartTimeDistro.size())]
+            for(int i = 0; i < loops; i++) {
                 def r = problem.tweak(problem.copy(s))
                 def rQuality = problem.quality(r)
                 if (rQuality > bestSampleQuality) {
@@ -33,10 +36,10 @@ class SteepestAscentHillClimberWithReplacement {
                 bestQuality = sQuality
             }
         }
-        return s
+        return best
     }
 
     String toString() {
-        "SAHCWR_" + numGradientSamples
+        "HCWRR_" + restartTimeDistro.join("_")
     }
 }
