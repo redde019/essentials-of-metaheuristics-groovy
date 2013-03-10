@@ -6,14 +6,29 @@ class ForwardNode {
 	def forwardNode(number){
 		forwardNode = number
 	}
-	def isfood(){
-		if (forwardNode == 1){
-			return true
+	def moveForward(ant, antBoard){
+		ant.pellets++
+		ant.steps++
+		def temp = ant.getCoordinate()		
+		if(ant.getDirection() == 1){
+			ant.setCoordinate(temp[1],temp[2]++)
+			antBoard[temp[1]][temp[2]++] = 0
 		}
-		else return false
+		else if(ant.getDirection() == 2){
+			ant.setCoordinate(temp[1]++,temp[2])
+			antBoard[temp[1]++][temp[2]] = 0
+		}
+		else if(ant.getDirection() == 3){
+			ant.setCoordinate(temp[1],temp[2]--)
+			antBoard[temp[1]][temp[2]--] = 0
+		}
+		else if(ant.getDirection() == 4){
+			ant.setCoordinate(temp[1]--,temp[2])
+			antBoard[temp[1]--][temp[2]] = 0
+		}
+		
 	}
 	def numbChildren(){
 		return 0
-		
 	}
 }
