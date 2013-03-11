@@ -4,30 +4,37 @@ class AntBoard {
 	public static void main(String [] args) {
 		int [][] antBoard = new int[32][32]
 		initialize(antBoard)
-		
+
 		printAntBoard(antBoard)
-		
-		}
+		println antBoard.size()
+
+	}
 	
-	
-	
+	def size(){
+		antBoard.size
+	}
+
+
+
 	public static void initialize(int [][] antBoard){
-		for (int i = 0; i < 32; i++){
-			for(int j = 0; j < 32; j++){
+		def tempSize = antBoard.size()
+		for (int i = 0; i < tempSize; i++){
+			for(int j = 0; j < tempSize; j++){
 				antBoard[i][j] = 0
 			}
 		}
 		setPellets(antBoard)
 	}
-	
-	
-	
+
+
+
 	private static void setPellets(int [][] antBoard){
+		def tempSize = antBoard.size()
 		Random rand = new Random()
 		int k = 0
 		for(k = 0; k < 100; k++){
-			int place1 = rand.nextInt(32)
-			int place2 = rand.nextInt(32)
+			int place1 = rand.nextInt(tempSize)
+			int place2 = rand.nextInt(tempSize)
 			if(antBoard[place1][place2] == 1){
 				k--
 			}
@@ -36,14 +43,15 @@ class AntBoard {
 			}
 		}
 	}
-	
+
 	public static void printAntBoard(int[][] antBoard) {
-		for(int i = 0; i < 32; i++) {
-				for(int j = 0; j < 32; j++) {
-						print (antBoard [i] [j])
-				}
-				println()
+		def tempSize = antBoard.size()
+		for(int i = 0; i < tempSize; i++) {
+			for(int j = 0; j < tempSize; j++) {
+				print (antBoard [i] [j])
+			}
+			println()
 		}
-}
+	}
 
 }

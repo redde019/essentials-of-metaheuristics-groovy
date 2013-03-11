@@ -10,9 +10,48 @@ class GPTree {
 	def functionSet
 	def rand = new Random()
 	def head
+
 	def runGPTree(){
+		grow(1, 5)
+	}
+
+	def depth(){
 
 	}
+
+	def runEverything(node){
+		if(Instanceof(node,RightNode())){
+			node.turn(ant)
+			if(head == node){
+				println "rightnode was first"
+				return
+			}
+		}
+		else if(Instanceof(node,LeftNode())){
+			node.turn(ant)
+			if(head == node){
+				println "lefttnode was first"
+				return
+			}
+		}
+		else if(Instanceof(node,ForwardNode())){
+			node.moveForward(ant, antBoard)
+		}
+		else if(Instanceof(node,IfFoodAheadNode())){
+			def result = lookForFood(ant, antBoard)
+			if(result){
+				runEverything(node.child1)
+			}else{
+				runEverything(node.child2)
+			}
+		}
+		else if(Instanceof(node,DoNode())){
+			runEverything(node.child1)
+			runEverything(node.child2)
+			
+		}
+	}
+
 	def grow(depth, max){
 		if(depth >= max){
 			return functionSet[rand.nextInt(4)]

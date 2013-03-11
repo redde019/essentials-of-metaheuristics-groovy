@@ -6,7 +6,6 @@ class RightNode {
 	
 	def numbChildren(){
 		return 0
-		
 	}
 	
 	def turn(ant){
