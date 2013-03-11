@@ -9,13 +9,15 @@ class AntBoard {
 		println antBoard.size()
 
 	}
-	
+
+	@Override
 	def size(){
-		antBoard.size
+		return 32
 	}
-
-
-
+	def eatPellet(x,y){
+		antBoard[x][y] == 0
+		
+	}
 	public static void initialize(int [][] antBoard){
 		def tempSize = antBoard.size()
 		for (int i = 0; i < tempSize; i++){

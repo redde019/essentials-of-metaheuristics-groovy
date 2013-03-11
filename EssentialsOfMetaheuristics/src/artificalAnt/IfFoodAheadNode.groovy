@@ -14,26 +14,26 @@ class IfFoodAheadNode {
 		def temp = ant.getCoordinate()
 		def tempSize = antBoard.size() 		
 		if(ant.getDirection() == 1){
-			if(temp[2]++ >= tempSize){
-				return 1 == antBoard[temp[1]][tempSize-temp[2]]
+			if(temp[1]++ >= tempSize){
+				return 1 == antBoard[temp[0]][tempSize-temp[1]]
 			}
 			else{
-				return 1 == antBoard[temp[1]][temp[2]++]
+				return 1 == antBoard[temp[0]][temp[1]++]
 			}
 		}
 		else if(ant.getDirection() == 2){
-			if(temp[1]++ >= tempSize){
-				return 1 == antBoard[tempSize-temp[1]][temp[2]]
+			if(temp[0]++ >= tempSize){
+				return 1 == antBoard[tempSize-temp[0]][temp[1]]
 			}
 			else{
-				return 1 == antBoard[temp[1]++][temp[2]]
+				return 1 == antBoard[temp[0]++][temp[1]]
 			}
 		}
 		else if(ant.getDirection() == 3){
-			return 1 == antBoard[temp[1]][temp[2]--]
+			return 1 == antBoard[temp[0]][temp[1]--]
 		}
 		else if(ant.getDirection() == 4){
-			return 1 == antBoard[temp[1]--][temp[2]]
+			return 1 == antBoard[temp[0]--][temp[1]]
 		}
 	}
 	

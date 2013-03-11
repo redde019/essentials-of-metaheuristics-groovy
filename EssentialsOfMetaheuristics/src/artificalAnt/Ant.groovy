@@ -5,11 +5,11 @@ class Ant {
 	def x = 0
 	def y = 0
 	
-	def steps
-	def pellets
+	def steps = 0
+	def pellets = 0
 	def direction = 2
 	
-	def coordinateChange(newX, newY){
+	def setCoordinate(newX, newY){
 		x = newX
 		y = newY
 	}

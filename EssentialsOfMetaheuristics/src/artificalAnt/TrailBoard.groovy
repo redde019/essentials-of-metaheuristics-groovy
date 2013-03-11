@@ -1,14 +1,20 @@
 package artificalAnt
 
 class TrailBoard {
-	public static void main(String [] args) {
+	
+//	public static void main(String [] args) {
+//		
+//		def trail = new TrailBoard()
+//		def testBoard = trail.makeBoard()
+//		printAntBoard(testBoard)
+//		
+//
+//	}
+	def makeBoard(){
 		int [][] antBoard = new int[32][32]
 		initialize(antBoard)
-
-		printAntBoard(antBoard)
-
+		return antBoard
 	}
-
 
 
 	public static void initialize(int [][] antBoard){
@@ -19,7 +25,6 @@ class TrailBoard {
 		}
 		setPellets(antBoard)
 	}
-
 
 
 	private static void setPellets(int [][] antBoard){
