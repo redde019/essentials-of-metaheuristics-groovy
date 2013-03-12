@@ -1,31 +1,36 @@
 package artificalAnt
 
 class AntBoard {
-	public static void main(String [] args) {
-		int [][] antBoard = new int[32][32]
-		initialize(antBoard)
-
-		printAntBoard(antBoard)
-		println antBoard.size()
-
-	}
+//	//public static void main(String [] args) {
+//		def antBoard = new AntBoard()
+//		antBoard.initialize(32)
+//
+//		antBoard.printAntBoard()
+//		println antBoard.size()
+//
+//	//}
+	
+	def board
+	def size
+	
 
 	@Override
 	def size(){
-		return 32
+		return size
 	}
 	def eatPellet(x,y){
 		antBoard[x][y] == 0
 		
 	}
-	public static void initialize(int [][] antBoard){
-		def tempSize = antBoard.size()
-		for (int i = 0; i < tempSize; i++){
-			for(int j = 0; j < tempSize; j++){
-				antBoard[i][j] = 0
+	def initialize(size1){
+		board = new int[size1][size1]
+		size = size1
+		for (int i = 0; i < size1; i++){
+			for(int j = 0; j < size1; j++){
+				board[i][j] = 0
 			}
 		}
-		setPellets(antBoard)
+		setPellets(board)
 	}
 
 
@@ -45,12 +50,15 @@ class AntBoard {
 			}
 		}
 	}
+	
+	def removePellet(x, y){
+		board[x][y] = 0		
+	}
 
-	public static void printAntBoard(int[][] antBoard) {
-		def tempSize = antBoard.size()
-		for(int i = 0; i < tempSize; i++) {
-			for(int j = 0; j < tempSize; j++) {
-				print (antBoard [i] [j])
+	def printAntBoard() {
+		for(int i = 0; i < size; i++) {
+			for(int j = 0; j < size; j++) {
+				print (board [i] [j])
 			}
 			println()
 		}

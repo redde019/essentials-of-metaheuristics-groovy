@@ -9,6 +9,6 @@ class RightNode {
 	}
 	
 	def turn(ant){
-		ant.setDirection(ant.getDirection()++)
+		ant.setDirection(ant.getDirection()+1)
 	}
 }

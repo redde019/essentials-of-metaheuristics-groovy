@@ -10,20 +10,33 @@ class TrailBoard {
 //		
 //
 //	}
-	def makeBoard(){
-		int [][] antBoard = new int[32][32]
-		initialize(antBoard)
-		return antBoard
+		
+	def board
+	def size
+	
+
+	@Override
+	def size(){
+		return size
 	}
-
-
-	public static void initialize(int [][] antBoard){
-		for (int i = 0; i < 32; i++){
-			for(int j = 0; j < 32; j++){
-				antBoard[i][j] = 0
+	
+	def initialize(size1){
+		board = new int[size1][size1]
+		size = size1
+		for (int i = 0; i < size1; i++){
+			for(int j = 0; j < size1; j++){
+				board[i][j] = 0
 			}
 		}
-		setPellets(antBoard)
+		setPellets(board)
+	}
+	
+	def removePellet(x, y){
+		board[x][y] = 0
+	}
+	
+	def getPlace(x, y){
+		return board[x][y]
 	}
 
 
@@ -45,10 +58,10 @@ class TrailBoard {
 		antBoard[5][10] = 1
 	}
 
-	public static void printAntBoard(int[][] antBoard) {
-		for(int i = 0; i < 32; i++) {
-			for(int j = 0; j < 32; j++) {
-				print (antBoard [i] [j])
+	def printAntBoard() {
+		for(int i = 0; i < size; i++) {
+			for(int j = 0; j < size; j++) {
+				print (board [i] [j])
 			}
 			println()
 		}
