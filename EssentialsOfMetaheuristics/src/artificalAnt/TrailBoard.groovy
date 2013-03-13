@@ -8,6 +8,8 @@ class TrailBoard {
 		trail.initialize(15)
 		trail.printAntBoard()
 		println trail.lookAtCoordinate(1, 0)
+		trail.removePellet(1, 0)
+		println trail.lookAtCoordinate(1, 0)
 		
 
 	}
@@ -34,10 +36,6 @@ class TrailBoard {
 	
 	def removePellet(x, y){
 		board[y][x] = 0
-	}
-	
-	def getPlace(x, y){
-		return board[y][x]
 	}
 	
 	def lookAtCoordinate(x,y){

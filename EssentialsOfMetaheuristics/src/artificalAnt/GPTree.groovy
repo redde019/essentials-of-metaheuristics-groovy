@@ -16,7 +16,7 @@ class GPTree {
 	
 
 	def runGPTree(){
-		grow(1, 5)
+		grow(2, 10)
 	}
 
 	def depth(){
@@ -27,19 +27,20 @@ class GPTree {
 		if(node instanceof RightNode){
 			node.turn(ant)
 			if(head == node){
-				println "rightnode was first"
 				return
 			}
+			println "RIGHT"
 		}
 		else if(node instanceof LeftNode){
 			node.turn(ant)
 			if(head == node){
-				println "lefttnode was first"
 				return
 			}
+			println "LEFT"
 		}
 		else if(node instanceof ForwardNode){
 			node.moveForward(ant, antBoard)
+			println "FORWARD"
 		}
 		else if(node instanceof IfFoodAheadNode){
 			def result = node.lookForFood(ant, antBoard)
@@ -48,11 +49,12 @@ class GPTree {
 			}else{
 				runEverything(node.child2)
 			}
+			println "FOOD"
 		}
 		else if(node instanceof DoNode){
 			runEverything(node.child1)
 			runEverything(node.child2)
-			
+			println "DO"
 		}
 	}
 	
@@ -68,11 +70,13 @@ class GPTree {
 		}
 		else if(node instanceof IfFoodAheadNode){
 				println "If_Food_Ahead"
-				println printTree(node.child1)+" "+ printTree(node.child2)
+				printTree(node.child1)
+				printTree(node.child2)
 		}
 		else if(node instanceof DoNode){
 			println "Do_Node"
-			println printTree(node.child1)+" "+ printTree(node.child2)
+			printTree(node.child1)
+			printTree(node.child2)
 			
 		}
 		

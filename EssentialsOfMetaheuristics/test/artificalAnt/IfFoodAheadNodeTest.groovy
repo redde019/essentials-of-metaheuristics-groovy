@@ -19,7 +19,7 @@ class IfFoodAheadNodeTest extends Specification{
 	def "Food is not ahead"(){
 		when:
 		board1.initialize(32)
-		ant.setDirection(1)
+		ant1.setDirection(1)
 		
 		then:
 		ahead.lookForFood(ant1, board1) == false

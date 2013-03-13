@@ -14,7 +14,7 @@ class Ant {
 		y = newY
 	}
 	def getCoordinate(){
-		return [x, y]
+		return [y, x]
 	}
 	
 	def getDirection(){

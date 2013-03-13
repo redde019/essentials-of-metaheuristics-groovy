@@ -1,14 +1,14 @@
 package artificalAnt
 
 class AntBoard {
-//	//public static void main(String [] args) {
-//		def antBoard = new AntBoard()
-//		antBoard.initialize(32)
-//
-//		antBoard.printAntBoard()
-//		println antBoard.size()
-//
-//	//}
+	public static void main(String [] args) {
+		def antBoard = new AntBoard()
+		antBoard.initialize(32)
+
+		antBoard.printAntBoard()
+		println antBoard.size()
+
+}
 	
 	def board
 	def size

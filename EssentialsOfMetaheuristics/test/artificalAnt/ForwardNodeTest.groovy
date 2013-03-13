@@ -24,8 +24,17 @@ class ForwardNodeTest extends Specification{
 		then:
 		ant1.pellets == 1
 		ant1.steps == 1
-		ant1.getCoordinate() == [1,0]
-		board1.getPlace(1,0) == 0 // Some how removePellet is not removing it. Look at forwardNode.groovy P.S. change coord. on antBoard like trailBoard
+		ant1.getCoordinate() == [0, 1]
+		board1.lookAtCoordinate(1,0) == 0
+		
+		when:
+		forward.moveForward(ant1, board1)
+		
+		then:
+		ant1.pellets == 2
+		ant1.steps == 2
+		ant1.getCoordinate() == [0, 2]
+		board1.lookAtCoordinate(2,0) == 0
 		
 	}
 	

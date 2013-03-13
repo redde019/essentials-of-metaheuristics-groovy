@@ -32,7 +32,7 @@ class BoardTest extends Specification {
 		board1.removePellet(1, 0)
 		
 		then:
-		board1.getPlace(1, 0) == 0
+		board1.lookAtCoordinate(1, 0) == 0
 		
 	}
 
