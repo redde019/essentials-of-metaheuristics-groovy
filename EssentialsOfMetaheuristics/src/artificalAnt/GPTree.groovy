@@ -57,24 +57,33 @@ class GPTree {
 			println "DO"
 		}
 	}
-	
+	def counter = 0
 	def printTree(node){
+		if (counter > 10){
+			return
+		}
 		if(node instanceof RightNode){
 			println"Right_Turn"
+			counter++
 			}
 		else if(node instanceof LeftNode){
 			println"Left_Turn"
+			counter++
 			}
 		else if(node instanceof ForwardNode){
 			println "Move_Forward"
+			counter++
 		}
 		else if(node instanceof IfFoodAheadNode){
 				println "If_Food_Ahead"
+				counter++
 				printTree(node.child1)
 				printTree(node.child2)
+				
 		}
 		else if(node instanceof DoNode){
 			println "Do_Node"
+			counter++
 			printTree(node.child1)
 			printTree(node.child2)
 			
@@ -97,14 +106,11 @@ class GPTree {
 				 randFunc = functionSet[rand.nextInt(5)]
 			}
 			def arity = randFunc.numbChildren()
-			for(int i = 1; i < arity; i++){
-				if(i==1){
-					randFunc.child1 = grow(depth++, max)
-				}
-				else {
-					randFunc.child2 = grow(depth++, max)
-				}
-
+			for(int i = 1; i < arity; i++){				
+					println "Child1"
+					randFunc.child1 = grow(depth+1, max)
+					println "Child2"
+					randFunc.child2 = grow(depth+1, max)
 			}
 			println randFunc
 			return randFunc
