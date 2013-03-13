@@ -12,7 +12,7 @@ class ForwardNode {
 		if(ant.getDirection() == 1){
 			if(tempCoord[1]++ >= tempSize){
 				ant.setCoordinate(tempCoord[0], tempSize-tempCoord[1])
-				antBoard.removePellet(tempCoord[0],tempSize-tempCoord[1])
+				antBoard.removePellet(tempCoord[0],tempSize-tempCoord[1]) // Trying to figure out why it is breaking
 			}
 			else{
 			ant.setCoordinate(tempCoord[0],tempCoord[1]++)
@@ -26,7 +26,7 @@ class ForwardNode {
 			}
 			else{
 			ant.setCoordinate(tempCoord[0]++,tempCoord[1])
-			antBoard.removePellet(tempCoord[0]++,tempCoord[1])
+			antBoard.removePellet(tempCoord[1], tempCoord[0]++)
 			}
 		}
 		else if(ant.getDirection() == 3){

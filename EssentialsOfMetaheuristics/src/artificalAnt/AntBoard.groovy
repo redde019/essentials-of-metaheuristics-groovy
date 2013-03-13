@@ -54,6 +54,10 @@ class AntBoard {
 	def removePellet(x, y){
 		board[x][y] = 0		
 	}
+	
+	def lookAtCoordinate(x,y){
+		return board[x][y]
+	}
 
 	def printAntBoard() {
 		for(int i = 0; i < size; i++) {

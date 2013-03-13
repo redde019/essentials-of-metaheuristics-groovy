@@ -23,12 +23,7 @@ class Ant {
 	}
 	
 	def setDirection(number){
-		if(number < 1 || number > 4){
-			return
-		} 
-		else{
 		direction = number
-		}
 	}
 
 }
