@@ -6,6 +6,7 @@ class IfFoodAheadNode {
 	def child1
 	def child2
 	def parent
+    def childId  // distinguish which child a node is, if its a child1 or child2 node
 	def numbChildren(){
 		return 2
 	}
@@ -17,11 +18,15 @@ class IfFoodAheadNode {
 	}
 	def setChild1(node){
 		child1 = node
+        node.setChildId(1)
 	}
 	def setChild2(node){
 		child2 = node
+        node.setChildId(2)
 	}
-	
+    def setChildId(number){
+        childId = number
+    }
 	def lookForFood(ant, antBoard){
 		def temp = ant.getCoordinate()
 		def tempY = temp[0]

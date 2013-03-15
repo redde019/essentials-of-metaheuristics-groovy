@@ -2,10 +2,11 @@ package artificalAnt
 
 class ForwardNode {
 	def parent
+    def childId
 	def moveForward(ant, antBoard){
 		ant.pellets++
 		ant.steps++
-		
+        def childId  // distinguish which child a node is, if its a child1 or child2 node
 		def tempCoord = ant.getCoordinate()
 		def tempX = tempCoord[1]
 		def tempY = tempCoord[0]
@@ -68,4 +69,7 @@ class ForwardNode {
 	def numbChildren(){
 		return 0
 	}
+    def setChildId(number){
+        childId = number
+    }
 }

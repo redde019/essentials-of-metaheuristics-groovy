@@ -135,25 +135,45 @@ class GPTree {
 			return randFunc
 		}
 	}
-	def nodeCounter = 0
+	 def returningNode
+     def nodeCounter
+    def returnNode(nodeNumber){
+        getNode(nodeNumber)
+        return returningNode
+    }
 	def getNode(nodeNumber){
-		return nodeThing(head, nodeNumber)
+        nodeCounter = 0
+        def returningNode = null
+		nodeThing(head, nodeNumber)
+        return returningNode
 	}
-	def nodeThing(node, number)	{	
-		if(nodeCounter == number){			
+	def nodeThing(node, number)	{
+        println "counter ${nodeCounter}"
+        println" counter = nodeNumber ${nodeCounter == number}"	
+        println" node is ${node}"
+        println"node is a if food ahead node ${node instanceof IfFoodAheadNode}"
+		if(nodeCounter.equals(number)){	
+            returningNode = node
+            println"this is the node return loop ima gona return ${node}"
+            println "returningNode is ${returningNode}"		
 			return node
-		}
-		else if(!(node instanceof DoNode) || !(node instanceof IfFoodAheadNode)) {
-			return
+		}else{
+		if((node instanceof DoNode) || (node instanceof IfFoodAheadNode)) {
+			nodeCounter+= 1
+           
+			nodeThing(node.getChild1(), number)
+          
+            nodeCounter+= 1
+            
+			nodeThing(node.getChild2(), number)
+          
+            
 		}
 		
 		else{
-			parentCounter++
-			findParent(node.getChild1(), number, parentCounter)
-			findParent(node.getChild2(), number, parentCounter)
-			
+			return	
 		}
-		
+		}
 		
 	}
 	
