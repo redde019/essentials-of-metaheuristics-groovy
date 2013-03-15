@@ -55,17 +55,15 @@ class AntCrossoverTest  extends Specification {
 		tree.head.setChild1(new LeftNode())
 		tree.head.setChild2(new ForwardNode())
 		tree.size = 3
+		
 		def tree2 = new GPTree()
 		tree2.head = new IfFoodAheadNode()
 		tree2.head.setChild1(new RightNode())
 		tree2.head.setChild2(new LeftNode())
 		tree2.size = 3
-		println tree.head
-		println tree2.head
+		
 		def cross = new AntCrossover()
 		cross.crossover(tree, tree2)
-		println "head tree after crossOver ${tree.head}"
-		println "head tree 2 after crossOver ${tree2.head}"
 		
 		then:
 		tree.head instanceof IfFoodAheadNode
@@ -84,8 +82,6 @@ class AntCrossoverTest  extends Specification {
 		tree2.head = new LeftNode()
 		tree2.size = 1
 		def cross = new AntCrossover()
-		println tree.head
-		println tree2.head
 		cross.crossover(tree, tree2)
 		
 		
