@@ -9,9 +9,12 @@ class Ant {
 	def pellets = 0
 	def direction = 2
 	
-	def setCoordinate(newX, newY){
-		x = newX
-		y = newY
+	def getPellets(){
+		return pellets
+	}
+	def setCoordinate(yCoord, xCoord){
+		x = xCoord
+		y = yCoord
 	}
 	def getCoordinate(){
 		return [y, x]

@@ -3,7 +3,7 @@ package artificalAnt
 class RightNode {
 	
 	def rightNode
-	
+	def parent
 	def numbChildren(){
 		return 0
 	}

@@ -25,9 +25,20 @@ class AntTest extends Specification {
 	}
 	
 	def "change coordinates"(){
-		expect:
+		when:
 		ant1.setCoordinate(0,1)
+		
+		then:
+		
 		ant1.getCoordinate() == [0,1]
+	}
+	def "change coordinates 2"(){
+		when:
+		ant1.setCoordinate(5,3)
+		
+		then:
+		
+		ant1.getCoordinate() == [5,3]
 	}
 
 }

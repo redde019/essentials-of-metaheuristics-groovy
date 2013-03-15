@@ -35,11 +35,11 @@ class TrailBoard {
 	}
 	
 	def removePellet(x, y){
-		board[y][x] = 0
+		board[x][y] = 0
 	}
 	
-	def lookAtCoordinate(x,y){
-		return board[y][x]
+	def lookAtCoordinate(x, y){
+		return board[x][y]
 	}
 
 

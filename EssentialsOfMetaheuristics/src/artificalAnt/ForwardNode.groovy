@@ -1,46 +1,70 @@
 package artificalAnt
 
 class ForwardNode {
-	
+	def parent
 	def moveForward(ant, antBoard){
 		ant.pellets++
 		ant.steps++
 		
 		def tempCoord = ant.getCoordinate()
-		def temp1 = tempCoord[0]
-		def temp2 = tempCoord[1]
+		def tempX = tempCoord[1]
+		def tempY = tempCoord[0]
 		def tempSize = antBoard.size()
 		
 		if(ant.getDirection() == 1){
-			if(tempCoord[1]++ >= tempSize){
-				ant.setCoordinate(tempCoord[0], tempSize-tempCoord[1])
-				antBoard.removePellet(temp2, tempSize-temp1) // Trying to figure out why it is breaking
+			if(tempY-1 < 0){
+				ant.setCoordinate((tempSize-tempY)-1, tempX)
+				antBoard.removePellet((tempSize-tempY)-1, tempX) // Trying to figure out why it is breaking
 			}
 			else{
-			ant.setCoordinate(tempCoord[0],tempCoord[1]++)
-			antBoard.removePellet(temp2, temp1+1)
+			ant.setCoordinate(tempY-1, tempX )
+			antBoard.removePellet(tempY-1, tempX)
 			}
+			
 		}
-		if(ant.getDirection() == 2){
-			if(tempCoord[1]++ >= tempSize){
-				ant.setCoordinate(tempSize-tempCoord[0], tempCoord[1])
-				antBoard.removePellet(tempSize-temp2, temp1)
+		
+		else if(ant.getDirection() == 2){
+			if(tempX+1 >= tempSize){
+				ant.setCoordinate(tempY, tempSize-tempX)
+				antBoard.removePellet(tempY, tempSize-tempX)
 			}
 			else{
-			ant.setCoordinate(tempCoord[1]++, tempCoord[0])
-			antBoard.removePellet(temp2+1, temp1)
+			ant.setCoordinate(tempY, tempX+1)
+			antBoard.removePellet(tempY, tempX+1)
 			}
+			
 		}
+		
 		else if(ant.getDirection() == 3){
-			ant.setCoordinate(tempCoord[0],tempCoord[1]--)
-			antBoard.removePellet(temp2, temp1-1)
+			if(tempY+1 > tempSize-1){
+				def result = (tempSize-tempY)-1
+				
+				ant.setCoordinate(result, tempX)
+				antBoard.removePellet(result, tempX)
+			}
+			else{
+			ant.setCoordinate(tempY+1,tempX)
+			antBoard.removePellet(tempY+1,tempX)
+			}
+			
 		}
+		
 		else if(ant.getDirection() == 4){
-			ant.setCoordinate(tempCoord[0]--,tempCoord[1])
-			antBoard.removePellet(temp2-1, temp1)
+			if(tempX-1 < 0){
+				println tempX-1
+				ant.setCoordinate(tempY,tempSize+tempX-1)
+				antBoard.removePellet(tempY, tempSize+tempX-1)
+				println tempX +" "+ tempY
+			} 
+			else{
+			ant.setCoordinate(tempY, tempX-1)
+			antBoard.removePellet(tempY, tempX-1)
+			
+			}
 		}
 		
 	}
+	
 	def numbChildren(){
 		return 0
 	}
