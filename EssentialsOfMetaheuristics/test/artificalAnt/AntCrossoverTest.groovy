@@ -28,6 +28,7 @@ class AntCrossoverTest  extends Specification {
         tree.head.child1.setChild1(new LeftNode())
         tree.head.child1.setChild2(new ForwardNode())
         tree.head.setChild2(new RightNode())
+		def k = tree.returnNode(0)
         def a = tree.returnNode(1)
         def b = tree.returnNode(2)
         def c = tree.returnNode(3)
@@ -44,7 +45,28 @@ class AntCrossoverTest  extends Specification {
         b instanceof LeftNode
         c instanceof ForwardNode
         d instanceof RightNode
+		k instanceof DoNode
         }
+	
+	def "test crossover"(){
+		when:
+		def tree = new GPTree()
+		tree.head = new DoNode()
+		tree.head.setChild1(new IfFoodAheadNode())
+		tree.head.child1.setChild1(new LeftNode())
+		tree.head.child1.setChild2(new ForwardNode())
+		tree.head.setChild2(new RightNode())
+		def tree2 = new GPTree()
+		tree.head = new LeftNode()
+		def cross = new AntCrossover()
+		cross.crossover(tree, tree2)
+		
+		then:
+		tree.head instanceof LeftNode
+		tree2.head instanceof DoNode
+		tree2.head.child1 instanceof IfFoodAheadNode
+		
+	}
     
 
 }

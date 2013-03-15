@@ -148,14 +148,9 @@ class GPTree {
         return returningNode
 	}
 	def nodeThing(node, number)	{
-        println "counter ${nodeCounter}"
-        println" counter = nodeNumber ${nodeCounter == number}"	
-        println" node is ${node}"
-        println"node is a if food ahead node ${node instanceof IfFoodAheadNode}"
+       
 		if(nodeCounter.equals(number)){	
             returningNode = node
-            println"this is the node return loop ima gona return ${node}"
-            println "returningNode is ${returningNode}"		
 			return node
 		}else{
 		if((node instanceof DoNode) || (node instanceof IfFoodAheadNode)) {
