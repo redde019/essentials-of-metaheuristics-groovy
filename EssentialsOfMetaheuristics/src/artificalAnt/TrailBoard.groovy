@@ -2,17 +2,17 @@ package artificalAnt
 
 class TrailBoard {
 	
-	public static void main(String [] args) {
-		
-		def trail = new TrailBoard()
-		trail.initialize(15)
-		trail.printAntBoard()
-		println trail.lookAtCoordinate(1, 0)
-		trail.removePellet(1, 0)
-		println trail.lookAtCoordinate(1, 0)
-		
-
-	}
+//	public static void main(String [] args) {
+//		
+//		def trail = new TrailBoard()
+//		trail.initialize(15)
+//		trail.printAntBoard()
+//		println trail.lookAtCoordinate(1, 0)
+//		trail.removePellet(1, 0)
+//		println trail.lookAtCoordinate(1, 0)
+//		
+//
+//	}
 		
 	def board
 	def size
@@ -42,7 +42,9 @@ class TrailBoard {
 		return board[x][y]
 	}
 
-
+	def reset(){
+		 return setPellets(board)
+	}
 
 	private static void setPellets(int [][] antBoard){
 		antBoard[0][1] = 1

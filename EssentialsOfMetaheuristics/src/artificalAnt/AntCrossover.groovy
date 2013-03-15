@@ -91,5 +91,6 @@ class AntCrossover {
 				}
 			}
 		}
+		return [fatherTree,motherTree]
 	}
 }

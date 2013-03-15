@@ -18,10 +18,7 @@ class AntBoard {
 	def size(){
 		return size
 	}
-	def eatPellet(x,y){
-		antBoard[x][y] == 0
-		
-	}
+	
 	def initialize(size1){
 		board = new int[size1][size1]
 		size = size1
@@ -55,7 +52,7 @@ class AntBoard {
 		board[x][y] = 0		
 	}
 	
-	def lookAtCoordinate(x,y){
+	def lookAtCoordinate(x, y){
 		return board[x][y]
 	}
 

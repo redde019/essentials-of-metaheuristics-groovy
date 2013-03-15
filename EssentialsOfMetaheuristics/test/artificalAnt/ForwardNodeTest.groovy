@@ -16,23 +16,22 @@ class ForwardNodeTest extends Specification{
 		board1.lookAtCoordinate(0,1) == 1
 	}
 	
-//	def "go forward"(){
-//		when:
-//		board1.initialize(15)
-//		forward.moveForward(ant1, board1)
-//		
-//		then:
-//		ant1.pellets == 1
-//		ant1.steps == 1
-//		ant1.getCoordinate() == [0, 1]
-//		board1.lookAtCoordinate(0,1) == 0
-//	}
+	def "go forward"(){
+		when:
+		board1.initialize(15)
+		forward.moveForward(ant1, board1)
+		
+		then:
+		ant1.pellets == 1
+		ant1.steps == 1
+		ant1.getCoordinate() == [0, 1]
+		board1.lookAtCoordinate(0,1) == 0
+	}
 	
 	def "go off board 4"(){
 		when:
 		board1.initialize(15)
 		ant1.setDirection(4)
-		println ant1.getDirection() + " Katie"
 		forward.moveForward(ant1, board1)
 		forward.moveForward(ant1, board1)
 		
@@ -46,7 +45,6 @@ class ForwardNodeTest extends Specification{
 		board1.initialize(15)
 		ant1.setDirection(3)
 		ant1.setCoordinate(14,0)
-		println ant1.getDirection() + " Katie"
 		forward.moveForward(ant1, board1)
 		
 		
@@ -58,7 +56,6 @@ class ForwardNodeTest extends Specification{
 		when:
 		board1.initialize(15)
 		ant1.setDirection(2)
-		println ant1.getDirection() + " Katie"
 		forward.moveForward(ant1, board1)
 		forward.moveForward(ant1, board1)
 		
@@ -70,12 +67,12 @@ class ForwardNodeTest extends Specification{
 		when:
 		board1.initialize(15)
 		ant1.setDirection(1)
-		println ant1.getDirection() + " Katie"
 		forward.moveForward(ant1, board1)
 		forward.moveForward(ant1, board1)
 		
 		then:
 		ant1.getCoordinate() == [13,0]
+		ant1.pellets == 0
 	}
 
 	

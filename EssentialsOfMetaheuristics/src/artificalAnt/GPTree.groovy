@@ -5,51 +5,72 @@ class GPTree {
 
 
 	def max
-	def ant
-	def antBoard
+	def ant = new Ant()
+	def antBoard = new TrailBoard()
 
 	def rand = new Random()
 	def head = null
 
-
+	def terminate(best, qualityBest){
+		if(qualityBest == 15 || best.ant.steps == 400){
+			return true 
+		}else{
+		return false
+		}
+		
+	}
+	def create(){
+		max = 1000
+		grow(1, max, head)
+	}
+	def quality(){
+		runEverything(head)
+		return ant.pellets
+	}
 	def runGPTree(){
 		max = 10
 		grow(1, 10, head)
 	}
 
-	def depth(){
-
+	def run(){
+		antBoard.initialize(32)
+		antBoard.reset()
+		ant.reset()
+		runEverything(head)
 	}
 
 	def runEverything(node){
-		if(node instanceof RightNode){
-			node.turn(ant)
-			if(head == node){
-				return
+		
+		if(ant.steps <= 400){
+			if(node instanceof RightNode){
+				node.turn(ant)
+				if(head == node){
+					return
+				}
 			}
-		}
-		else if(node instanceof LeftNode){
-			node.turn(ant)
-			if(head == node){
-				return
+			else if(node instanceof LeftNode){
+				node.turn(ant)
+				if(head == node){
+					return
+				}
 			}
-		}
-		else if(node instanceof ForwardNode){
-			node.moveForward(ant, antBoard)
+			else if(node instanceof ForwardNode){
+				node.moveForward(ant, antBoard)
 
-		}
-		else if(node instanceof IfFoodAheadNode){
-			def result = node.lookForFood(ant, antBoard)
-			if(result){
+			}
+			else if(node instanceof IfFoodAheadNode){
+				def result = node.lookForFood(ant, antBoard)
+				if(result){
+					runEverything(node.getChild1())
+				}else{
+					runEverything(node.getChild2())
+				}
+			}
+			else if(node instanceof DoNode){
 				runEverything(node.getChild1())
-			}else{
 				runEverything(node.getChild2())
 			}
-		}
-		else if(node instanceof DoNode){
-			runEverything(node.getChild1())
-			runEverything(node.getChild2())
-		}
+		}else return
 	}
 	def counter = 0
 	def printTree(node){
@@ -83,10 +104,12 @@ class GPTree {
 
 		}
 
+
 	}
 	def size = 0
 	def size(){
 		return size
+
 	}
 
 	def grow(depth, max, node){

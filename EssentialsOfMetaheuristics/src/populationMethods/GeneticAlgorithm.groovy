@@ -17,7 +17,7 @@ class GeneticAlgorithm {
 		def startingPopulation = [] as Set
 		
 		popsize.times {
-			def toAdd = problem.random()
+			def toAdd = problem.create()
 			startingPopulation.add(toAdd) // Add a new random individual
 		}
 		
@@ -39,8 +39,8 @@ class GeneticAlgorithm {
 				def parentA = selector.select(problem, startingPopulation as List)
 				def parentB = selector.select(problem, startingPopulation as List)
 				def children = crossover(parentA, parentB)
-				endingPopulation.add(problem.tweak(children[0]))
-				endingPopulation.add(problem.tweak(children[1]))
+				//endingPopulation.add(problem.tweak(children[0]))
+				//endingPopulation.add(problem.tweak(children[1]))
 			}
 			startingPopulation = endingPopulation
 		}
