@@ -1,27 +1,83 @@
 package artificalAnt
 import java.util.Random
 class AntCrossover {
-    def rand = new Random()
-    def crossover(fatherTree, motherTree){
-		def biggestSize
-		if(fatherTree.size > motherTree.size){
-			biggestSize = motherTree.size
+	def rand = new Random()
+	def biggestSize(tree1,tree2){
+		def biggestsize
+		if(tree1.size() > tree2.size()){
+			biggestsize = tree2.size()
 		}
-		else{biggestSize = fatherTree.size}
-		println biggestSize
-		if(biggestSize == 0){
-			
-			fatherTree = motherTree
-			println fatherTree.head
-			motherTree = fatherTree
-			println motherTree.head
-			return
+		else{biggestsize = tree1.size()}
+		return biggestsize
+	}
+	def crossover(fatherTree, motherTree){
+		def dadTree = fatherTree
+		def momTree = motherTree
+		println fatherTree.head
+		println motherTree.head
+		def biggestSize = biggestSize(fatherTree,motherTree)
+		println fatherTree.size()
+
+
+		def fatherPoint = rand.nextInt(biggestSize)
+		println "father point: " + fatherPoint
+		def motherPoint = rand.nextInt(biggestSize)
+		println "mother point: " + motherPoint
+		def fatherNode = fatherTree.returnNode(fatherPoint)
+		def motherNode = motherTree.returnNode(motherPoint)
+		def grandFather
+		def grandMother
+		if(fatherPoint == 0){
+			grandFather = null
 		}
-        def fatherPoint = rand.nextInt(biggestSize)
-        def motherPoint = rand.nextInt(biggestSize) 
-        def fatherNode = fatherTree.getNode(fatherPoint)
-        def motherNode = motherTree.getNode(motherPoint)
-        def grandFather = fatherNode.parent
-        def grandMother = motherNode.parent
-    }
+		else{
+			println "father node ${fatherNode}"
+			grandFather = fatherNode.parent
+
+		}
+		if(motherPoint == 0){
+			grandMother = null
+		}
+		else{
+			grandMother = motherNode.parent
+		}
+		if(fatherPoint == 0 && motherPoint == 0){
+			def tempNode = fatherTree.head
+			fatherTree.head = motherTree.head
+			motherTree.head = tempNode
+			println "Should be different: " + fatherTree.head
+			println "Should be different: " + motherTree.head
+		}
+		//		else if(fatherPoint == 0 && motherPoint != 0){
+		//			def tempFather = fatherNode
+		//			fatherTree.head = motherNode
+		//			def tempParent1 = motherNode.parent
+		//			if(motherNode.childId == 1){
+		//				tempParent1.child1 = fatherNode
+		//				fatherNode.parent = tempParent1
+		//			}else{
+		//				tempParent1.child2 = fatherNode
+		//				fatherNode.parent = tempParent1
+		//			}
+		//			fatherTree.head.parent = null
+		//		}
+		else {
+			def tempNode = fatherNode
+			def tempParent = fatherNode.parent
+			def tempMother = motherNode
+			def tempParent1 = motherNode.parent
+			if( fatherNode instanceof DoNode || fatherNode instanceof IfFoodAheadNode){
+				if(fatherNode.childId == 1){
+					tempParent.child1 = motherNode
+				}else{
+					tempParent.child2 = motherNode
+				}
+				if(motherNode.childId == 1){
+					tempParent1.child1 = motherNode
+				}else{
+					tempParent1.child2 = motherNode
+				}
+			}
+		}
+	}
 }

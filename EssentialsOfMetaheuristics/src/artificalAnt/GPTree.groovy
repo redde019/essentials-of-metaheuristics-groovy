@@ -87,6 +87,10 @@ class GPTree {
 		
 	}
 	def size = 0
+	def size(){
+		println size
+		return size
+	}
 
 	def grow(depth, max, node){
 		def randFunc
@@ -110,13 +114,13 @@ class GPTree {
 		}
 		else{
 			if (head == null ){
-				size++
+				size+1
 				head = functionSet[rand.nextInt(5)]
 				if(head.numbChildren() == 0) return head
 				randFunc = head
 			}
 			else {
-				size++
+				size+1
 				randFunc = functionSet[rand.nextInt(5)]
 				println "RandFunc " + randFunc
 			}
