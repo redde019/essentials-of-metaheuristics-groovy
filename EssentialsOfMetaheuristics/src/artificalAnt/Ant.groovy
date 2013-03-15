@@ -1,7 +1,7 @@
 package artificalAnt
 
 class Ant {
-	
+	//
 	def x = 0
 	def y = 0
 	
