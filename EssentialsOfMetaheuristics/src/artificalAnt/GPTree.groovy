@@ -24,8 +24,13 @@ class GPTree {
 		grow(1, max, head)
 	}
 	def quality(){
-		runEverything(head)
-		return ant.pellets
+		run()
+        
+		def pels = ant.pellets
+        def steps = ant.steps
+        //println "pellets ${ant.pellets}"
+       // println"steps ${ant.steps}"
+        return pels+(0.4*steps)
 	}
 	def runGPTree(){
 		max = 10

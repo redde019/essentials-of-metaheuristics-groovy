@@ -4,17 +4,16 @@ class AntRunner {
 	
 	public static void main(String [] args) {
 		
-
-		def superTree = new GPTree()
-		
-		superTree.runGPTree()
-		println superTree.size + " kittens"
-		
-		
-		superTree.run()
-		println superTree.ant.getPellets()+" pellets"
-		superTree.printTree(superTree.head)
-
+        def forest = []
+		for(int i = 0 ; i<100 ; i++){
+            forest.add(new GPTree())
+        }
+        int j
+        for(tree in forest){
+            tree.create()
+            j++
+            println "tree ${j} ${tree.quality()}"
+        }
 
 	}
 }
