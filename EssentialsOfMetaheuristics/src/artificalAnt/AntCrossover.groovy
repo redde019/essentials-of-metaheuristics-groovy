@@ -14,9 +14,13 @@ class AntCrossover {
 		def dadTree = fatherTree
 		def momTree = motherTree
 		def biggestSize = biggestSize(fatherTree,motherTree)
-
-		def fatherPoint = rand.nextInt(biggestSize)
-		def motherPoint = rand.nextInt(biggestSize)
+		println "biggestSize ${biggestSize}"
+		def fatherPoint = 0
+		def motherPoint = 0
+		if(biggestSize != 0){
+			fatherPoint = rand.nextInt(biggestSize)
+			motherPoint = rand.nextInt(biggestSize)
+		}
 		def fatherNode = fatherTree.returnNode(fatherPoint)
 		def motherNode = motherTree.returnNode(motherPoint)
 		def grandFather
@@ -78,16 +82,16 @@ class AntCrossover {
 			def tempParent1 = motherNode.parent
 			if( fatherNode instanceof DoNode || fatherNode instanceof IfFoodAheadNode){
 				if(fatherNode.childId == 1){
-					tempParent.child1 = motherNode
+					tempParent.setChild1(motherNode)
 				}else{
-					tempParent.child2 = motherNode
+					tempParent.setChild2(motherNode)
 				}
 			}
 			if( motherNode instanceof DoNode || motherNode instanceof IfFoodAheadNode){
 				if(motherNode.childId == 1){
-					tempParent1.child1 = fatherNode
+					tempParent1.setChild1(fatherNode)
 				}else{
-					tempParent1.child2 = fatherNode
+					tempParent1.setChild2(fatherNode)
 				}
 			}
 		}

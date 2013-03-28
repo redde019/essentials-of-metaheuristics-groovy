@@ -11,32 +11,28 @@ class GPTree {
 	def rand = new Random()
 	def head = null
 
-	def terminate(best, qualityBest){
-		if(qualityBest == 15 || best.ant.steps == 400){
-			return true 
-		}else{
-		return false
-		}
-		
-	}
+	
 	def create(){
 		max = 1000
 		grow(1, max, head)
 	}
 	def quality(){
 		run()
-        
 		def pels = ant.pellets
-        def steps = ant.steps
-        //println "pellets ${ant.pellets}"
-       // println"steps ${ant.steps}"
-        return pels+(0.4*steps)
+		def steps = ant.steps
+        return pels + (steps*0.4)
 	}
 	def runGPTree(){
 		max = 10
 		grow(1, 10, head)
 	}
-
+	def terminate(best, qualityOfBest){
+		if(qualityOfBest == 15 || best.ant.steps == 400){
+			return true
+		}else{
+			return false
+		}
+	}
 	def run(){
 		antBoard.initialize(32)
 		antBoard.reset()
@@ -128,7 +124,7 @@ class GPTree {
 
 		if(depth >= max){
 			def rand1 = functionSet[rand.nextInt(5)]
-			size++
+			size+=1
 			if(rand1 instanceof DoNode || rand1 instanceof IfFoodAheadNode){
 				rand1 = functionSet[rand.nextInt(3)+2]
 			}
@@ -137,13 +133,13 @@ class GPTree {
 		}
 		else{
 			if (head == null ){
-				size+1
+				size+=1
 				head = functionSet[rand.nextInt(5)]
 				if(head.numbChildren() == 0) return head
 				randFunc = head
 			}
 			else {
-				size+1
+				size+=1
 				randFunc = functionSet[rand.nextInt(5)]
 
 			}

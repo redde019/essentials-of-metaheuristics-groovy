@@ -11,6 +11,16 @@ class runTest extends Specification {
        tree.run()
        
        then:
-       tree.quality() == 2
+       tree.quality() == 1
+   }
+   def ' add to array list'(){
+	   when:
+	   def list = []
+	   def problem = new Problem()
+	   list.add(problem.create())
+	   
+	   then:
+	   list.size() == 1
+	   println list
    }
 }

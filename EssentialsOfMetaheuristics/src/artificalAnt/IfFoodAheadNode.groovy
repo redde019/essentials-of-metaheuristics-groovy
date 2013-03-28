@@ -28,32 +28,71 @@ class IfFoodAheadNode {
         childId = number
     }
 	def lookForFood(ant, antBoard){
-		def temp = ant.getCoordinate()
-		def tempY = temp[0]
-		def tempX = temp[1]
-		def tempSize = antBoard.size() 		
+		def tempCoord = ant.getCoordinate()
+		def tempX = tempCoord[1]
+		def tempY = tempCoord[0]
+		def tempSize = antBoard.size()
+
 		if(ant.getDirection() == 1){
-			if(temp[0]++ >= tempSize){
-				return antBoard.lookAtCoordinate(tempSize-tempY, tempX) == 1
+			if(tempY-1 < 0){
+				
+				antBoard.lookAtCoordinate((tempSize-tempY)-1, tempX) == 1
+					
 			}
 			else{
-				return antBoard.lookAtCoordinate(tempY+1, tempX) == 1 
+				
+				antBoard.lookAtCoordinate(tempY-1, tempX)==1
+					
 			}
+
 		}
+
 		else if(ant.getDirection() == 2){
-			if(temp[1]++ >= tempSize){
-				return antBoard.lookAtCoordinate(tempY,tempSize-tempX) == 1
+			if(tempX+1 >= tempSize){
+				
+				antBoard.lookAtCoordinate(tempY, tempSize-tempX)==1
+					
+				}
+			
+			else{
+				
+				antBoard.lookAtCoordinate(tempY, tempX+1) == 1
+					
+				
+			}
+
+		}
+
+		else if(ant.getDirection() == 3){
+			if(tempY+1 > tempSize-1){
+				def result = (tempSize-tempY)-1
+
+				
+				antBoard.lookAtCoordinate(result, tempX) == 1
+					
+				}
+			
+			else{
+				
+				antBoard.lookAtCoordinate(tempY+1,tempX) == 1
+					
+			}
+
+		}
+
+		else if(ant.getDirection() == 4){
+			if(tempX-1 < 0){
+				
+				antBoard.lookAtCoordinate(tempY, tempSize+tempX-1) == 1
+					
 			}
 			else{
-				return antBoard.lookAtCoordinate( tempY, tempX+1) == 1
+				
+				antBoard.lookAtCoordinate(tempY, tempX-1) == 1
+					
 			}
 		}
-		else if(ant.getDirection() == 3){
-			return antBoard.lookAtCoordinate(tempY-1, tempX ) == 1
-		}
-		else if(ant.getDirection() == 4){
-			return antBoard.lookAtCoordinate(tempY, tempX-1 ) == 1
-		}
+
 	}
 	
 }

@@ -3,7 +3,8 @@ package populationMethods
 import java.util.Random
 import operators.Crossovers
 import operators.TournamentSelection
-
+import artificalAnt.GPTree
+import artificalAnt.AntCrossover
 class GeneticAlgorithm {
 	// Algorithm 20
 	
@@ -11,39 +12,47 @@ class GeneticAlgorithm {
 	def popsize = 100
 	
 	// Our Algorithm takes a Genetic Algorithm Problem, a desired population size
-	def maximize(problem, populationSize=popsize, selector=new TournamentSelection(), crossover=new Crossovers().onePointCrossover) {
+	def maximize(problem, populationSize=popsize, selector=new TournamentSelection(), Crossover= new AntCrossover()) {
 		popsize = populationSize
+		println popsize
 	
-		def startingPopulation = [] as Set
-		
-		popsize.times {
-			def toAdd = problem.create()
-			startingPopulation.add(toAdd) // Add a new random individual
+		def startingPopulation = [] 
+		println startingPopulation.size()
+		def tree
+		for(int i = 0; i < popsize;i++) {
+			tree = new GPTree()
+			tree.create()
+			startingPopulation[i] = tree // Add a new random individual
 		}
 		
-		def best = problem.create()
-		def qualityOfBest = problem.quality(best)
-		while(!problem.terminate(best, qualityOfBest)) {
+		def best = new GPTree()
+		best.create()
+		def qualityOfBest = best.quality()
+		def genCounter = 0
+		while(!best.terminate(best, qualityOfBest) && genCounter < 200) {
 			for(def individual: startingPopulation) {
-				def newQuality = problem.quality(individual)
+				def newQuality = individual.quality()
+				
 				if(newQuality > qualityOfBest) {
 					best = individual
 					qualityOfBest = newQuality
 				}
-				
 			}
-
-			def endingPopulation = [] as Set
+			
+			def endingPopulation = [] 
 			
 			for(i in 0..(popsize/2)) {
-				def parentA = selector.select(problem, startingPopulation as List)
-				def parentB = selector.select(problem, startingPopulation as List)
-				def children = crossover(parentA, parentB)
-				//endingPopulation.add(problem.tweak(children[0]))
-				//endingPopulation.add(problem.tweak(children[1]))
+				
+				def parentA = selector.select(startingPopulation)
+				def parentB = selector.select(startingPopulation)
+				def children = Crossover.crossover(parentA, parentB)
+				endingPopulation.add(children[0])
+				endingPopulation.add(children[1])
 			}
 			startingPopulation = endingPopulation
+			genCounter++
 		}
+		println "best tree " + best
 		return best
 	}
 	
