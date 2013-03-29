@@ -21,10 +21,14 @@ class AntCrossover {
 			fatherPoint = rand.nextInt(biggestSize)
 			motherPoint = rand.nextInt(biggestSize)
 		}
+		println "Father: " + fatherPoint
+		println "Mother: " + motherPoint
 		def fatherNode = fatherTree.returnNode(fatherPoint)
 		def motherNode = motherTree.returnNode(motherPoint)
 		def grandFather
 		def grandMother
+		println "Father Node: "+ fatherNode
+		println "Mother Node: "+ motherNode
 		if(fatherPoint == 0){
 			grandFather = null
 		}
@@ -38,6 +42,8 @@ class AntCrossover {
 		else{
 			grandMother = motherNode.parent
 		}
+		println "grandFather Node: "+ grandFather
+		println "grandMother Node: "+ grandMother
 		if(fatherPoint == 0 && motherPoint == 0){
 			def tempNode = fatherTree.head
 			fatherTree.head = motherTree.head
@@ -76,22 +82,24 @@ class AntCrossover {
 
 		}
 		else {
-			def tempNode = fatherNode
 			def tempParent = fatherNode.parent
-			def tempMother = motherNode
 			def tempParent1 = motherNode.parent
+			if(grandFather == null || grandMother == null){
+				println "Kittens is null"
+			}
 			if( fatherNode instanceof DoNode || fatherNode instanceof IfFoodAheadNode){
 				if(fatherNode.childId == 1){
-					tempParent.setChild1(motherNode)
+					grandFather.setChild1(motherNode)
 				}else{
-					tempParent.setChild2(motherNode)
+					grandFather.setChild2(motherNode)
 				}
 			}
+			
 			if( motherNode instanceof DoNode || motherNode instanceof IfFoodAheadNode){
 				if(motherNode.childId == 1){
-					tempParent1.setChild1(fatherNode)
+					grandMother.setChild1(fatherNode)
 				}else{
-					tempParent1.setChild2(fatherNode)
+					grandMother.setChild2(fatherNode)
 				}
 			}
 		}

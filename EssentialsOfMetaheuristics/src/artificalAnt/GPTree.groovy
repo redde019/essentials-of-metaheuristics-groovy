@@ -75,30 +75,34 @@ class GPTree {
 	}
 	def counter = 0
 	def printTree(node){
+		if(node == null){
+			println "null node"
+			return
+		}
 		if (counter > max){
 			return
 		}
 		if(node instanceof RightNode){
-			println"Right_Turn"
+			//println"Right_Turn"
 			counter++
 		}
 		else if(node instanceof LeftNode){
-			println"Left_Turn"
+			//println"Left_Turn"
 			counter++
 		}
 		else if(node instanceof ForwardNode){
-			println "Move_Forward"
+			//println "Move_Forward"
 			counter++
 		}
 		else if(node instanceof IfFoodAheadNode){
-			println "If_Food_Ahead"
+			//println "If_Food_Ahead"
 			counter++
 			printTree(node.getChild1())
 			printTree(node.getChild2())
 
 		}
 		else if(node instanceof DoNode){
-			println "Do_Node"
+			//println "Do_Node"
 			counter++
 			printTree(node.getChild1())
 			printTree(node.getChild2())
@@ -109,10 +113,28 @@ class GPTree {
 	}
 	def size = 0
 	def size(){
+		size = 0
+		calcSize(head)
 		return size
-
 	}
+	def calcSize(node){
+		
+			if((node instanceof DoNode) || (node instanceof IfFoodAheadNode)) {
+				
+				size+= 1
 
+				calcSize(node.getChild1())
+				
+				
+
+				calcSize(node.getChild2())
+			}
+			else{
+				size += 1
+				return
+			}
+		}
+	
 	def grow(depth, max, node){
 		def randFunc
 		def Do = new DoNode()
@@ -124,7 +146,7 @@ class GPTree {
 
 		if(depth >= max){
 			def rand1 = functionSet[rand.nextInt(5)]
-			size+=1
+			
 			if(rand1 instanceof DoNode || rand1 instanceof IfFoodAheadNode){
 				rand1 = functionSet[rand.nextInt(3)+2]
 			}
@@ -133,13 +155,13 @@ class GPTree {
 		}
 		else{
 			if (head == null ){
-				size+=1
+				
 				head = functionSet[rand.nextInt(5)]
 				if(head.numbChildren() == 0) return head
 				randFunc = head
 			}
 			else {
-				size+=1
+				
 				randFunc = functionSet[rand.nextInt(5)]
 
 			}
@@ -162,7 +184,7 @@ class GPTree {
 	}
 	def getNode(nodeNumber){
 		nodeCounter = 0
-		def returningNode = null
+		returningNode = null
 		nodeThing(head, nodeNumber)
 		return returningNode
 	}
@@ -170,13 +192,14 @@ class GPTree {
 
 		if(nodeCounter.equals(number)){
 			returningNode = node
-			return node
+			return
 		}else{
 			if((node instanceof DoNode) || (node instanceof IfFoodAheadNode)) {
+				
 				nodeCounter+= 1
 
 				nodeThing(node.getChild1(), number)
-
+				
 				nodeCounter+= 1
 
 				nodeThing(node.getChild2(), number)

@@ -9,10 +9,7 @@ class ParentTest extends Specification{
 	
 	def "find parent at root"(){
 		when:
-		def ant = new Ant()
-		def board1 = new TrailBoard()
-		def superTree = new GPTree(ant:ant,antBoard: board1)
-		board1.initialize(15)
+		def superTree = new GPTree()
 		superTree.head = new DoNode()
 		superTree.head.setChild1(new DoNode())
 		superTree.head.child1.setChild1(new RightNode())
@@ -26,4 +23,28 @@ class ParentTest extends Specification{
 		superTree.getNode(2) instanceof RightNode
 		
 	}
+	
+	def "get node at point"(){
+		when:
+		def tree = new GPTree()
+		tree.head = new DoNode()
+		tree.head.setChild1(new DoNode())
+		tree.head.child1.setChild1(new RightNode())
+		tree.head.child1.setChild2(new LeftNode())
+		tree.head.setChild2(new ForwardNode())
+		
+		then:
+		tree.getNode(1) instanceof DoNode
+	}
+	
+	def 'right node is head'(){
+		when:
+		def tree = new GPTree()
+		tree.head = new RightNode()
+		
+		then:
+		println"right node is head"
+		tree.getNode(0) instanceof RightNode
+	}
+	
 }
