@@ -3,6 +3,10 @@ package artificalAnt
 class ForwardNode {
 	def parent
 	def childId
+	def setParent(node){
+		parent = node
+	}
+
 	def moveForward(ant, antBoard){
 
 		ant.steps++

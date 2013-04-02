@@ -27,6 +27,10 @@ class IfFoodAheadNode {
     def setChildId(number){
         childId = number
     }
+	def setParent(node){
+		parent = node
+	}
+
 	def lookForFood(ant, antBoard){
 		def tempCoord = ant.getCoordinate()
 		def tempX = tempCoord[1]

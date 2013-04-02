@@ -15,5 +15,9 @@ class LeftNode {
     def setChildId(number){
         childId = number
     }
+	def setParent(node){
+		parent = node
+	}
+
 
 }

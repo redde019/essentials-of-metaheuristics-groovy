@@ -27,5 +27,8 @@ class DoNode {
 	def setChildId(number){
         childId = number
     }
+	def setParent(node){
+		parent = node
+	}
 
 }

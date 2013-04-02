@@ -13,8 +13,8 @@ class AntCrossover {
 	}
 	
 	def crossover(fatherTree, motherTree){
-		def dadTree = fatherTree
-		def momTree = motherTree
+		def dadTree = fatherTree.clone()
+		def momTree = motherTree.clone()
 		def biggestSize = biggestSize(dadTree,momTree)
 		//println "biggestSize ${biggestSize}"
 		def fatherPoint = 0
@@ -58,11 +58,11 @@ class AntCrossover {
 			if(tempParent1 instanceof DoNode || tempParent1 instanceof IfFoodAheadNode){
 				if(motherNode.childId == 1){
 					tempParent1.child1 = fatherNode
-					fatherNode.parent = tempParent1
+					fatherNode.setParent(tempParent1)
 					fatherNode.childId = 1
 				}else{
 					tempParent1.child2 = fatherNode
-					fatherNode.parent = tempParent1
+					fatherNode.setParent(tempParent1)
 					fatherNode.childId = 2
 				}
 			}
@@ -75,12 +75,12 @@ class AntCrossover {
 			if(tempParent1 instanceof DoNode || tempParent1 instanceof IfFoodAheadNode){
 				if(fatherNode.childId == 1){
 					tempParent1.child1 = motherNode
-					motherNode.parent = tempParent1
+					motherNode.setParent(tempParent1)
 					motherNode.childId = 1
 				}
 				else{
 					tempParent1.child2 = motherNode
-					motherNode.parent = tempParent1
+					motherNode.setParent(tempParent1)
 					motherNode.childId = 2
 				}
 			}
@@ -92,8 +92,8 @@ class AntCrossover {
 			def tempParent1 = motherNode.parent
 			if(tempParent == null || tempParent1 == null){
 				println "Kittens is null"
-				println "father Node: ${fatherNode} and number ${fatherPoint} and size ${fatherTree.size()}"
-				println "Mother Node: ${motherNode} and number ${motherPoint} and size ${motherTree.size()}"
+				println "father Node: ${fatherNode} and number ${fatherPoint} and size ${dadTree.size()}"
+				println "Mother Node: ${motherNode} and number ${motherPoint} and size ${momTree.size()}"
 				println "TempParent1 Node: ${tempParent1} and grandmother is ${grandFather}"
 				println "TempParent Node: ${tempParent} and grandfather is ${grandMother}"
 				
@@ -101,11 +101,11 @@ class AntCrossover {
 			if(tempParent instanceof DoNode || tempParent instanceof IfFoodAheadNode){
 				if(fatherNode.childId == 1){
 					tempParent.setChild1(motherNode)
-					motherNode.parent = tempParent
+					motherNode.setParent(tempParent)
 					motherNode.childId = 1
 				}else{
 					tempParent.setChild2(motherNode)
-					motherNode.parent = tempParent
+					motherNode.setParent(tempParent)
 					motherNode.childId = 2
 				}
 			}
@@ -113,11 +113,11 @@ class AntCrossover {
 			if( tempParent1 instanceof DoNode || tempParent1 instanceof IfFoodAheadNode){
 				if(motherNode.childId == 1){
 					tempParent1.setChild1(fatherNode)
-					fatherNode.parent = tempParent1
+					fatherNode.setParent(tempParent1)
 					fatherNode.childId = 1
 				}else{
 					tempParent1.setChild2(fatherNode)
-					fatherNode.parent = tempParent1
+					fatherNode.setParent(tempParent1)
 					fatherNode.childId = 2
 				}
 			}
