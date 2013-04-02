@@ -11,21 +11,31 @@ class GPTree {
 	def rand = new Random()
 	def head = null
 
+	def getHead(){
+		return head
+	}
+	
+	def setHead(node){
+		head = node
+	}
 	
 	def create(){
 		max = 1000
 		grow(1, max, head)
 	}
+	
 	def quality(){
 		run()
 		def pels = ant.pellets
 		def steps = ant.steps
         return pels + (steps*0.4)
 	}
+	
 	def runGPTree(){
 		max = 10
 		grow(1, 10, head)
 	}
+	
 	def terminate(best, qualityOfBest){
 		if(qualityOfBest == 15 || best.ant.steps == 400){
 			return true
@@ -33,6 +43,7 @@ class GPTree {
 			return false
 		}
 	}
+	
 	def run(){
 		antBoard.initialize(32)
 		antBoard.reset()
@@ -41,7 +52,6 @@ class GPTree {
 	}
 
 	def runEverything(node){
-		
 		if(ant.steps <= 400){
 			if(node instanceof RightNode){
 				node.turn(ant)
@@ -73,7 +83,9 @@ class GPTree {
 			}
 		}else return
 	}
+	
 	def counter = 0
+	
 	def printTree(node){
 		if(node == null){
 			println "null node"
@@ -83,33 +95,31 @@ class GPTree {
 			return
 		}
 		if(node instanceof RightNode){
-			//println"Right_Turn"
+			println"Right_Turn"
 			counter++
 		}
 		else if(node instanceof LeftNode){
-			//println"Left_Turn"
+			println"Left_Turn"
 			counter++
 		}
 		else if(node instanceof ForwardNode){
-			//println "Move_Forward"
+			println "Move_Forward"
 			counter++
 		}
 		else if(node instanceof IfFoodAheadNode){
-			//println "If_Food_Ahead"
+			println "If_Food_Ahead"
 			counter++
 			printTree(node.getChild1())
 			printTree(node.getChild2())
 
 		}
 		else if(node instanceof DoNode){
-			//println "Do_Node"
+			println "Do_Node"
 			counter++
 			printTree(node.getChild1())
 			printTree(node.getChild2())
 
 		}
-
-
 	}
 	def size = 0
 	def size(){
@@ -117,16 +127,13 @@ class GPTree {
 		calcSize(head)
 		return size
 	}
+	
 	def calcSize(node){
-		
 			if((node instanceof DoNode) || (node instanceof IfFoodAheadNode)) {
 				
 				size+= 1
 
 				calcSize(node.getChild1())
-				
-				
-
 				calcSize(node.getChild2())
 			}
 			else{
@@ -178,6 +185,7 @@ class GPTree {
 	}
 	def returningNode
 	def nodeCounter
+	def trees
 	def returnNode(nodeNumber){
 		getNode(nodeNumber)
 		return returningNode
@@ -207,6 +215,52 @@ class GPTree {
 			else{
 				return
 			}
+		}
+
+	}
+	
+	def clone(){
+		def tree = new GPTree()
+		tree.setHead(cloneNode(head))
+		recurseClone(tree.getHead(),head)
+		tree.head = trees
+		return tree
+	}
+	def cloneNode(node){
+		def clone
+		if(node instanceof RightNode){
+			clone = new RightNode()
+		}
+		else if(node instanceof LeftNode){
+			clone = new LeftNode()
+		}
+		else if(node instanceof ForwardNode){
+			clone = new ForwardNode()
+		}
+		else if(node instanceof DoNode){
+			
+			clone = new DoNode()
+		}
+		else if(node instanceof IfFoodAheadNode){
+			
+			clone = new IfFoodAheadNode()
+		}
+		return clone
+	}
+	def recurseClone(treeNode,node){
+
+		if(node == head){
+			treeNode = cloneNode(head)
+			trees = treeNode
+		}
+		if((node instanceof DoNode) || (node instanceof IfFoodAheadNode)) {
+
+			treeNode.setChild1(cloneNode(node.getChild1()))
+			recurseClone(treeNode.getChild1(),node.getChild1())
+
+
+			treeNode.setChild2(cloneNode(node.getChild2()))
+			recurseClone(treeNode.getChild2(),node.getChild2())
 		}
 
 	}

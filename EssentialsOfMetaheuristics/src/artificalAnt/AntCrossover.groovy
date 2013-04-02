@@ -2,6 +2,7 @@ package artificalAnt
 import java.util.Random
 class AntCrossover {
 	def rand = new Random()
+	
 	def biggestSize(tree1,tree2){
 		def biggestsize
 		if(tree1.size() > tree2.size()){
@@ -10,25 +11,26 @@ class AntCrossover {
 		else{biggestsize = tree1.size()}
 		return biggestsize
 	}
+	
 	def crossover(fatherTree, motherTree){
 		def dadTree = fatherTree
 		def momTree = motherTree
-		def biggestSize = biggestSize(fatherTree,motherTree)
-		println "biggestSize ${biggestSize}"
+		def biggestSize = biggestSize(dadTree,momTree)
+		//println "biggestSize ${biggestSize}"
 		def fatherPoint = 0
 		def motherPoint = 0
 		if(biggestSize != 0){
 			fatherPoint = rand.nextInt(biggestSize)
 			motherPoint = rand.nextInt(biggestSize)
 		}
-		println "Father: " + fatherPoint
-		println "Mother: " + motherPoint
-		def fatherNode = fatherTree.returnNode(fatherPoint)
-		def motherNode = motherTree.returnNode(motherPoint)
+		//println "Father: " + fatherPoint
+		//println "Mother: " + motherPoint
+		def fatherNode = dadTree.returnNode(fatherPoint)
+		def motherNode = momTree.returnNode(motherPoint)
 		def grandFather
 		def grandMother
-		println "Father Node: "+ fatherNode
-		println "Mother Node: "+ motherNode
+		//println "Father Node is head? ${fatherNode == fatherTree.head}"
+		//println "Mother Node is head?  ${motherNode == motherTree.head}"
 		if(fatherPoint == 0){
 			grandFather = null
 		}
@@ -42,67 +44,85 @@ class AntCrossover {
 		else{
 			grandMother = motherNode.parent
 		}
-		println "grandFather Node: "+ grandFather
-		println "grandMother Node: "+ grandMother
+		//println "grandFather Node: "+ grandFather
+		//println "grandMother Node: "+ grandMother
 		if(fatherPoint == 0 && motherPoint == 0){
-			def tempNode = fatherTree.head
-			fatherTree.head = motherTree.head
-			motherTree.head = tempNode
+			def tempNode = dadTree.head
+			dadTree.head = momTree.head
+			momTree.head = tempNode
 		}
 		else if(fatherPoint == 0 && motherPoint != 0){
 			def tempFather = fatherNode
-			fatherTree.head = motherNode
+			dadTree.head = motherNode
 			def tempParent1 = motherNode.parent
-			if(motherNode instanceof DoNode || motherNode instanceof IfFoodAheadNode){
+			if(tempParent1 instanceof DoNode || tempParent1 instanceof IfFoodAheadNode){
 				if(motherNode.childId == 1){
 					tempParent1.child1 = fatherNode
 					fatherNode.parent = tempParent1
+					fatherNode.childId = 1
 				}else{
 					tempParent1.child2 = fatherNode
 					fatherNode.parent = tempParent1
+					fatherNode.childId = 2
 				}
 			}
-			fatherTree.head.parent = null
+			dadTree.head.parent = null
 		}
 		else if(motherPoint == 0 && fatherPoint != 0){
 			def tempMother = motherNode
-			motherTree.head = fatherNode
+			momTree.head = fatherNode
 			def tempParent1 = fatherNode.parent
-			if(fatherNode instanceof DoNode || fatherNode instanceof IfFoodAheadNode){
+			if(tempParent1 instanceof DoNode || tempParent1 instanceof IfFoodAheadNode){
 				if(fatherNode.childId == 1){
 					tempParent1.child1 = motherNode
 					motherNode.parent = tempParent1
+					motherNode.childId = 1
 				}
 				else{
 					tempParent1.child2 = motherNode
 					motherNode.parent = tempParent1
+					motherNode.childId = 2
 				}
 			}
-			motherTree.head.parent = null
+			momTree.head.parent = null
 
 		}
-		else {
+		else if (motherPoint != 0 && fatherPoint != 0) {
 			def tempParent = fatherNode.parent
 			def tempParent1 = motherNode.parent
-			if(grandFather == null || grandMother == null){
+			if(tempParent == null || tempParent1 == null){
 				println "Kittens is null"
+				println "father Node: ${fatherNode} and number ${fatherPoint} and size ${fatherTree.size()}"
+				println "Mother Node: ${motherNode} and number ${motherPoint} and size ${motherTree.size()}"
+				println "TempParent1 Node: ${tempParent1} and grandmother is ${grandFather}"
+				println "TempParent Node: ${tempParent} and grandfather is ${grandMother}"
+				
 			}
-			if( fatherNode instanceof DoNode || fatherNode instanceof IfFoodAheadNode){
+			if(tempParent instanceof DoNode || tempParent instanceof IfFoodAheadNode){
 				if(fatherNode.childId == 1){
-					grandFather.setChild1(motherNode)
+					tempParent.setChild1(motherNode)
+					motherNode.parent = tempParent
+					motherNode.childId = 1
 				}else{
-					grandFather.setChild2(motherNode)
+					tempParent.setChild2(motherNode)
+					motherNode.parent = tempParent
+					motherNode.childId = 2
 				}
 			}
 			
-			if( motherNode instanceof DoNode || motherNode instanceof IfFoodAheadNode){
+			if( tempParent1 instanceof DoNode || tempParent1 instanceof IfFoodAheadNode){
 				if(motherNode.childId == 1){
-					grandMother.setChild1(fatherNode)
+					tempParent1.setChild1(fatherNode)
+					fatherNode.parent = tempParent1
+					fatherNode.childId = 1
 				}else{
-					grandMother.setChild2(fatherNode)
+					tempParent1.setChild2(fatherNode)
+					fatherNode.parent = tempParent1
+					fatherNode.childId = 2
 				}
 			}
 		}
-		return [fatherTree,motherTree]
+		//println"quality of father: ${fatherTree.quality()}"
+		return [dadTree,momTree]
 	}
 }
