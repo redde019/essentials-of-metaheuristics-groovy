@@ -4,7 +4,7 @@ import java.util.Random
 class GPTree {
 
 
-	def max
+	def max = 1000
 	def ant = new Ant()
 	def antBoard = new TrailBoard()
 
@@ -19,8 +19,12 @@ class GPTree {
 		head = node
 	}
 	
+	def getMax(){
+		return max
+	}
+	
 	def create(){
-		max = 1000
+		
 		grow(1, max, head)
 	}
 	
@@ -122,9 +126,9 @@ class GPTree {
 		}
 	}
 	def size = 0
-	def size(){
+	def size(node=head){
 		size = 0
-		calcSize(head)
+		calcSize(node)
 		return size
 	}
 	

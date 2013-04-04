@@ -44,8 +44,9 @@ class AntCrossover {
 		else{
 			grandMother = motherNode.parent
 		}
-		//println "grandFather Node: "+ grandFather
-		//println "grandMother Node: "+ grandMother
+		if(momTree.getMax() < momTree.size()-momTree.size(motherNode)+dadTree.size(fatherNode)||dadTree.getMax() < dadTree.size()-dadTree.size(fatherNode)+momTree.size(motherNode)){
+			return [dadTree,momTree]
+		}
 		if(fatherPoint == 0 && motherPoint == 0){
 			def tempNode = dadTree.head
 			dadTree.head = momTree.head
