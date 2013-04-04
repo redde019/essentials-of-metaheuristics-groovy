@@ -29,20 +29,22 @@ class GeneticAlgorithm {
 		best.create()
 		def qualityOfBest = best.quality()
 		def genCounter = 0
-		while(!best.terminate(best, qualityOfBest) && genCounter < 10) {
+		while(!best.terminate(best, qualityOfBest) && genCounter < 100) {
 			def t =0
 			for(def individual: startingPopulation) {
 				def newQuality = individual.quality()
-				//println "GEN_${genCounter}_individual_${t}_quality_${newQuality}"
+				if(t%5 == 0){
+				println "GEN_${genCounter}_individual_${t}_quality_${newQuality}"
+				}
 				t++
 				if(newQuality > qualityOfBest) {
 					best = individual.clone()
-					println"new best: ${newQuality}"
+					//println"new best: ${newQuality}"
 					qualityOfBest = newQuality
 				}
 				//println"bestQuality ${best.quality()}"
 			}
-			println "end of Gen ${genCounter}"
+			//println "end of Gen ${genCounter}"
 			def endingPopulation = [] 
 			
 			for(i in 0..(popsize/2)) {

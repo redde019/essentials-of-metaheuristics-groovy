@@ -2,7 +2,7 @@ package artificalAnt
 import java.util.Random
 class AntCrossover {
 	def rand = new Random()
-	
+
 	def biggestSize(tree1,tree2){
 		def biggestsize
 		if(tree1.size() > tree2.size()){
@@ -11,26 +11,23 @@ class AntCrossover {
 		else{biggestsize = tree1.size()}
 		return biggestsize
 	}
-	
+
 	def crossover(fatherTree, motherTree){
 		def dadTree = fatherTree.clone()
 		def momTree = motherTree.clone()
 		def biggestSize = biggestSize(dadTree,momTree)
-		//println "biggestSize ${biggestSize}"
 		def fatherPoint = 0
 		def motherPoint = 0
 		if(biggestSize != 0){
 			fatherPoint = rand.nextInt(biggestSize)
 			motherPoint = rand.nextInt(biggestSize)
 		}
-		//println "Father: " + fatherPoint
-		//println "Mother: " + motherPoint
+
 		def fatherNode = dadTree.returnNode(fatherPoint)
 		def motherNode = momTree.returnNode(motherPoint)
 		def grandFather
 		def grandMother
-		//println "Father Node is head? ${fatherNode == fatherTree.head}"
-		//println "Mother Node is head?  ${motherNode == motherTree.head}"
+
 		if(fatherPoint == 0){
 			grandFather = null
 		}
@@ -91,14 +88,7 @@ class AntCrossover {
 		else if (motherPoint != 0 && fatherPoint != 0) {
 			def tempParent = fatherNode.parent
 			def tempParent1 = motherNode.parent
-			if(tempParent == null || tempParent1 == null){
-				println "Kittens is null"
-				println "father Node: ${fatherNode} and number ${fatherPoint} and size ${dadTree.size()}"
-				println "Mother Node: ${motherNode} and number ${motherPoint} and size ${momTree.size()}"
-				println "TempParent1 Node: ${tempParent1} and grandmother is ${grandFather}"
-				println "TempParent Node: ${tempParent} and grandfather is ${grandMother}"
-				
-			}
+
 			if(tempParent instanceof DoNode || tempParent instanceof IfFoodAheadNode){
 				if(fatherNode.childId == 1){
 					tempParent.setChild1(motherNode)
@@ -110,7 +100,7 @@ class AntCrossover {
 					motherNode.childId = 2
 				}
 			}
-			
+
 			if( tempParent1 instanceof DoNode || tempParent1 instanceof IfFoodAheadNode){
 				if(motherNode.childId == 1){
 					tempParent1.setChild1(fatherNode)
@@ -123,7 +113,6 @@ class AntCrossover {
 				}
 			}
 		}
-		//println"quality of father: ${fatherTree.quality()}"
 		return [dadTree,momTree]
 	}
 }
