@@ -260,10 +260,12 @@ class GPTree {
 		if((node instanceof DoNode) || (node instanceof IfFoodAheadNode)) {
 
 			treeNode.setChild1(cloneNode(node.getChild1()))
+                         treeNode.child1.parent = treeNode
 			recurseClone(treeNode.getChild1(),node.getChild1())
 
 
 			treeNode.setChild2(cloneNode(node.getChild2()))
+                          treeNode.child2.parent = treeNode
 			recurseClone(treeNode.getChild2(),node.getChild2())
 		}
 
