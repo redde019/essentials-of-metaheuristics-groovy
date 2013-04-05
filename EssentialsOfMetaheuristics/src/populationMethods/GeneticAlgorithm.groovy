@@ -24,10 +24,12 @@ class GeneticAlgorithm {
 			tree.create()
 			startingPopulation[i] = tree // Add a new random individual
 		}
-		
+		def fossilOfBests = []
 		def best = new GPTree()
 		best.create()
+        
 		def qualityOfBest = best.quality()
+        fossilOfBests.add("GEN_N_individual_0_quality_${qualityOfBest}")
 		def genCounter = 0
 		while(!best.terminate(best, qualityOfBest) && genCounter < 100) {
 			def t =0
@@ -39,8 +41,9 @@ class GeneticAlgorithm {
 				t++
 				if(newQuality > qualityOfBest) {
 					best = individual.clone()
-					//println"new best: ${newQuality}"
-					qualityOfBest = newQuality
+                    qualityOfBest = newQuality
+					fossilOfBests.add("GEN_${genCounter}_individual_${t}_quality_${qualityOfBest}")
+					
 				}
 				//println"bestQuality ${best.quality()}"
 			}
@@ -59,7 +62,7 @@ class GeneticAlgorithm {
 			genCounter++
 		}
 		println "best tree " + best
-		return best
+		return [best,fossilOfBests]
 	}
 	
 	String toString() {

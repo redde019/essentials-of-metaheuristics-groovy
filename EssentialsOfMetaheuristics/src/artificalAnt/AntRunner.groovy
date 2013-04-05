@@ -23,9 +23,11 @@ class AntRunner {
 		
 		
 		def coolBest = algorithm.maximize(problem: tree, crossover: cross)
-		println coolBest.quality()
+		println coolBest[0].quality()
 		println algorithm.toString()
-		coolBest.printTree(coolBest.getHead())
+        println 'size ${coolBest[0].size()}'
+        println coolBest[1]
+		//coolBest.printTree(coolBest.getHead())
 
 	}
 }

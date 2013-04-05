@@ -3,10 +3,13 @@ import java.util.Random
 
 class GPTree {
 
-
-	def max = 1000
+  
+	def max = 1200   
 	def ant = new Ant()
 	def antBoard = new TrailBoard()
+    def returningNode   // variable for storing a node for the returnNode() function
+    def nodeCounter     
+    def trees           // variable for
 
 	def rand = new Random()
 	def head = null
@@ -27,19 +30,14 @@ class GPTree {
 
 		grow(1, max, head)
 	}
-
+/* Determines quality of a tree possibly decrease quality for too many steps*/
 	def quality(){
 		run()
 		def pels = ant.pellets
 		//def steps = ant.steps
 		return pels
 	}
-
-	def runGPTree(){
-		max = 10
-		grow(1, 10, head)
-	}
-
+/* stops a GA run when an individual as reached the best case or specified limit*/
 	def terminate(best, qualityOfBest){
 		if(qualityOfBest == 15 || best.ant.steps == 400){
 			return true
@@ -47,16 +45,15 @@ class GPTree {
 			return false
 		}
 	}
-
+/*  resets ant and board to run the tree*/
 	def run(){
 		antBoard.initialize(32)
 		antBoard.reset()
 		ant.reset()
 		runEverything(head)
 	}
-
+  /* Recursively goes through tree and runs */
 	def runEverything(node){
-		if(ant.steps <= 400){
 			if(node instanceof RightNode){
 				node.turn(ant)
 				if(head == node){
@@ -85,11 +82,10 @@ class GPTree {
 				runEverything(node.getChild1())
 				runEverything(node.getChild2())
 			}
-		}else return
 	}
 
-	def counter = 0
-
+	def counter = 0 // what is this for? do we need it anymore?
+/* recursively prints tree*/
 	def printTree(node){
 		if(node == null){
 			println "null node"
@@ -187,14 +183,14 @@ class GPTree {
 			return randFunc
 		}
 	}
-	def returningNode
-	def nodeCounter
-	def trees
+    
+	
+    /* recurses through tree and returns a node by a depth first number*/
 	def returnNode(nodeNumber){
 		getNode(nodeNumber)
 		return returningNode
 	}
-	def getNode(nodeNumber){
+	def getNode(nodeNumber){  /* need this method otherwise returningNode seems to be null*/
 		nodeCounter = 0
 		returningNode = null
 		nodeThing(head, nodeNumber)
@@ -222,10 +218,9 @@ class GPTree {
 		}
 
 	}
-
+/* clones a tree */
 	def clone(){
 		def tree = new GPTree()
-		tree.setHead(cloneNode(head))
 		recurseClone(tree.getHead(),head)
 		tree.head = trees
 		return tree
@@ -270,19 +265,19 @@ class GPTree {
 		}
 
 	}
-
-	def printChildren(node){
-		if(node instanceof DoNode || node instanceof IfFoodAheadNode){
-			if(node == node.getChild1() || node == node.getChild2()){
-				println "Problem"
-				return
-			}
-
-			printChildren(node.getChild1())
-			printChildren(node.getChild2())
-		}
-		else println "This is the end of " + node
-	}
+        /* not sure if we need this anymore*/
+//	def printChildren(node){
+//		if(node instanceof DoNode || node instanceof IfFoodAheadNode){
+//			if(node == node.getChild1() || node == node.getChild2()){
+//				println "Problem"
+//				return
+//			}
+//
+//			printChildren(node.getChild1())
+//			printChildren(node.getChild2())
+//		}
+//		else println "This is the end of " + node
+//	}
 
 }
 

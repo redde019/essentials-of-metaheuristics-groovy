@@ -2,7 +2,7 @@ package artificalAnt
 import java.util.Random
 class AntCrossover {
 	def rand = new Random()
-
+/* not sure if biggestSize() is needed as long as we use the size of the respective tree in finding a node in that tree*/
 	def biggestSize(tree1,tree2){
 		def biggestsize
 		if(tree1.size() > tree2.size()){
@@ -44,11 +44,13 @@ class AntCrossover {
 		if(momTree.getMax() < momTree.size()-momTree.size(motherNode)+dadTree.size(fatherNode)||dadTree.getMax() < dadTree.size()-dadTree.size(fatherNode)+momTree.size(motherNode)){
 			return [dadTree,momTree]
 		}
+        /* case where crossover occurs at the head of the tree*/
 		if(fatherPoint == 0 && motherPoint == 0){
 			def tempNode = dadTree.head
 			dadTree.head = momTree.head
 			momTree.head = tempNode
 		}
+        /* case where crossover occurs at the head of the tree and inside the tree*/
 		else if(fatherPoint == 0 && motherPoint != 0){
 			def tempFather = fatherNode
 			dadTree.head = motherNode
@@ -66,6 +68,7 @@ class AntCrossover {
 			}
 			dadTree.head.parent = null
 		}
+        /* case where crossover occurs at the head of the tree and inside the tree*/
 		else if(motherPoint == 0 && fatherPoint != 0){
 			def tempMother = motherNode
 			momTree.head = fatherNode
@@ -85,6 +88,7 @@ class AntCrossover {
 			momTree.head.parent = null
 
 		}
+        /* case where crossover occurs in the tree */
 		else if (motherPoint != 0 && fatherPoint != 0) {
 			def tempParent = fatherNode.parent
 			def tempParent1 = motherNode.parent

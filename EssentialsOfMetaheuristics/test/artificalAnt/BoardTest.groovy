@@ -16,7 +16,7 @@ class BoardTest extends Specification {
 		then:
 		board1.size() == 32
 		board2.size() == 26
-		board1.lookAtCoordinate(1,0) == 1
+		board1.lookAtCoordinate(0,1) == 1
 	}
 	
 	def "look at coordinates"(){
@@ -24,7 +24,7 @@ class BoardTest extends Specification {
 		board1.initialize(32)
 		
 		then:
-		board1.lookAtCoordinate(1, 0) == 1
+		board1.lookAtCoordinate(0, 1) == 1
 	}
 	def "change 1 to zero"(){
 		when:
